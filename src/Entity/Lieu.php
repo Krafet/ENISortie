@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\LieuxRepository;
+use App\Repository\LieuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=LieuxRepository::class)
+ * @ORM\Entity(repositoryClass=LieuRepository::class)
  */
-class Lieux
+class Lieu
 {
     /**
      * @ORM\Id
@@ -18,17 +20,12 @@ class Lieux
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=125)
      */
-    private $no_lieu;
+    private $nom;
 
     /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $nom_lieu;
-
-    /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $rue;
 
@@ -43,35 +40,24 @@ class Lieux
     private $longitude;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Ville::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $villes_no_ville;
+    private $ville;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNoLieu(): ?int
+    public function getNom(): ?string
     {
-        return $this->no_lieu;
+        return $this->nom;
     }
 
-    public function setNoLieu(int $no_lieu): self
+    public function setNom(string $nom): self
     {
-        $this->no_lieu = $no_lieu;
-
-        return $this;
-    }
-
-    public function getNomLieu(): ?string
-    {
-        return $this->nom_lieu;
-    }
-
-    public function setNomLieu(string $nom_lieu): self
-    {
-        $this->nom_lieu = $nom_lieu;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -112,14 +98,14 @@ class Lieux
         return $this;
     }
 
-    public function getVillesNoVille(): ?int
+    public function getVille(): ?Ville
     {
-        return $this->villes_no_ville;
+        return $this->ville;
     }
 
-    public function setVillesNoVille(int $villes_no_ville): self
+    public function setVille(?Ville $ville): self
     {
-        $this->villes_no_ville = $villes_no_ville;
+        $this->ville = $ville;
 
         return $this;
     }

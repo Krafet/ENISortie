@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CampusRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,40 +20,101 @@ class Campus
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=55)
      */
-    private $no_campus;
+    private $nom;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="campus", orphanRemoval=true)
      */
-    private $nom_campus;
+    private $participants;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="siteOrganisateur", orphanRemoval=true)
+     */
+    private $sorties;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNoCampus(): ?int
+    public function getNom(): ?string
     {
-        return $this->no_campus;
+        return $this->nom;
     }
 
-    public function setNoCampus(int $no_campus): self
+    public function setNom(string $nom): self
     {
-        $this->no_campus = $no_campus;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getNomCampus(): ?string
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipants(): Collection
     {
-        return $this->nom_campus;
+        return $this->participants;
     }
 
-    public function setNomCampus(string $nom_campus): self
+    public function addParticipant(Participant $participant): self
     {
-        $this->nom_campus = $nom_campus;
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->setCampus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participants->contains($participant)) {
+            $this->participants->removeElement($participant);
+            // set the owning side to null (unless already changed)
+            if ($participant->getCampus() === $this) {
+                $participant->setCampus(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties[] = $sorty;
+            $sorty->setSiteOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sorties->contains($sorty)) {
+            $this->sorties->removeElement($sorty);
+            // set the owning side to null (unless already changed)
+            if ($sorty->getSiteOrganisateur() === $this) {
+                $sorty->setSiteOrganisateur(null);
+            }
+        }
 
         return $this;
     }
