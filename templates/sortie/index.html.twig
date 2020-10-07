@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+
+{%  block main %}
+    {{ form_start(filterSortieForm) }}
+    {{ form_widget(filterSortieForm) }}
+    <button type="submit"> Rechercher </button>
+    {{ form_end(filterSortieForm) }}
+
+{% endblock %}

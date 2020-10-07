@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Inscriptions;
+use App\Entity\Inscription;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @method Inscriptions|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Inscriptions[]    findAll()
  * @method Inscriptions[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InscriptionsRepository extends ServiceEntityRepository
+class InscriptionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Inscriptions::class);
+        parent::__construct($registry, Inscription::class);
     }
 
     // /**
