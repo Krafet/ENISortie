@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Campus;
+use App\Entity\Participant;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,20 +19,22 @@ class UserController extends AbstractController
     public function register(Request $request, EntityManagerInterface $em,
                                 UserPasswordEncoderInterface $encoder)
     {
-        $user = new User();
-        $user->setDateCreated(new \DateTime());
+
+        $participant = new Participant();
 
 
-        $registerForm = $this->createForm(RegisterType::class, $user);
+        $registerForm = $this->createForm(RegisterType::class, $participant);
 
         $registerForm->handleRequest($request);
         if($registerForm->isSubmitted() && $registerForm->isValid())
         {
             //hash
-                $hashedPassword = $encoder->encodePassword($user, $user->getPassword());
-                $user->setPassword($hashedPassword);
+                $hashedPassword = $encoder->encodePassword($participant, $participant->getMotPasse());
+                $participant->setMotPasse($hashedPassword);
+                $participant->setAdministrateur(false);
+                $participant->setActif(false);
 
-                $em->persist($user);
+                $em->persist($participant);
                 $em->flush();
                 $this->addFlash('success', "Utilisateur ajouté");
                 $this->redirectToRoute('home');

@@ -3,8 +3,8 @@ security:
     providers:
         our_db_provider:
             entity:
-                class: App\Entity\User
-                property: username
+                class: App\Entity\Participant
+                property: nom
 
     firewalls:
         main:
@@ -19,6 +19,6 @@ security:
                 target: home
 
     encoders:
-        App\Entity\User:
+        App\Entity\Participant:
             algorithm: bcrypt
 
