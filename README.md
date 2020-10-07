@@ -1,2 +1,0 @@
-# ENISortie
-Projet ENI Symfony
