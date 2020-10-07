@@ -16,8 +16,9 @@ class HomeController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $em)
     {
-        $campus = "";
-        $dateDebut = "";
+        $repo = $em->getRepository(Sortie::class);
+        $sorties = $repo->findAll();
+
         $filterSortieForm = $this->createForm(FilterSortiesType::class);
 
         $filterSortieForm->handleRequest($request);
@@ -37,6 +38,7 @@ class HomeController extends AbstractController
 
         return $this->render("sortie/index.html.twig", [
             "filterSortieForm"=> $filterSortieForm->createView(),
+            "sorties" => $sorties,
         ]);
     }
 }
