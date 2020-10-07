@@ -25,8 +25,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a1170ed-53a1-4cf0-af51-6d3ccf6f0b10" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +194,7 @@
       <workItem from="1602054611569" duration="2321000" />
       <workItem from="1602059278223" duration="139000" />
       <workItem from="1602059768349" duration="1498000" />
-      <workItem from="1602071792975" duration="4830000" />
+      <workItem from="1602071792975" duration="5268000" />
     </task>
     <servers />
   </component>
@@ -249,10 +248,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602059322079" />
-    <state x="-1121" y="211" width="1223" height="1027" key="dock-window-1" timestamp="1602077432054">
+    <state x="-1121" y="211" width="1223" height="1027" maximized="true" key="dock-window-1" timestamp="1602077872957">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1121" y="211" width="1223" height="1027" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602077432054" />
+    <state x="-1121" y="211" width="1223" height="1027" maximized="true" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602077872957" />
     <state x="-1121" y="211" width="1223" height="1027" maximized="true" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602072856863" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1594289275779">
       <screen x="0" y="0" width="1920" height="1040" />
