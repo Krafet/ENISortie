@@ -1,11 +1,13 @@
+{% extends 'layout.html.twig' %}
+
 {%  block main %}
   <form method="post">
 
-      <label for="username"> Mot de passe : </label>
-      <input type="text" name="_username" id="username">
+      <label for="nom"> Mot de passe : </label>
+      <input type="text" name="_username" id="nom">
 
-      <label for="mdp"> Mot de passe : </label>
-      <input type="password" name="_password" id="password">
+      <label for="motPasse"> Mot de passe : </label>
+      <input type="password" name="_password" id="motPasse">
 
       <button type="submit"> Se connecter</button>
   </form>
