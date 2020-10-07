@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Sorties;
+use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,11 +12,24 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Sorties[]    findAll()
  * @method Sorties[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SortiesRepository extends ServiceEntityRepository
+class SortieRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Sorties::class);
+        parent::__construct($registry, Sortie::class);
+    }
+
+    public function findListInscriptionByUser(Integer $id)
+    {
+        return $this->createQueryBuilder('inscription')
+            ->addSelect('*')
+            ->where('inscription.participant_id = ')
+            ->join('inscription.participant_id', 'participant')
+            ->join('inscription.sortie_id', 'sortie')
+            ->orderBy('inscription', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
