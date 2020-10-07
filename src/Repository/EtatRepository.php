@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Etats;
+use App\Entity\Etat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,11 +12,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Etats[]    findAll()
  * @method Etats[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EtatsRepository extends ServiceEntityRepository
+class EtatRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Etats::class);
+        parent::__construct($registry, Etat::class);
     }
 
     // /**
