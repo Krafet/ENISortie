@@ -18,7 +18,6 @@ class HomeController extends AbstractController
     {
         $repo = $em->getRepository(Sortie::class);
         $sorties = $repo->findAll();
-
         $filterSortieForm = $this->createForm(FilterSortiesType::class);
 
         $filterSortieForm->handleRequest($request);

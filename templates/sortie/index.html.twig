@@ -23,14 +23,26 @@
             </thead>
             <tbody>
             {% for sortie in sorties %}
+                {% set isInscrit = false %}
+                {% for inscription in sortie.inscriptions %}
+                    {% if app.user.id == inscription.participant.id %}
+                        {% set isInscrit = true %}
+                    {% endif %}
+                {% endfor %}
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut|format_datetime() }}</td>
                 <td>{{ sortie.dateLimiteInscription|format_datetime() }}</td>
                 <td>{{ sortie.inscriptions|length }} /{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etat.libelle }}</td>
-                <td>{{ sortie.dateHeureDebut|format_datetime() }}</td>
-                <td>{{ sortie.organisateur.nom }}</td>
+                {% if isInscrit == true %}
+                    <td>X</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+
+                <td>{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</td>
+                {{ if sortie.organisateur }}
                 <td></td>
             </tr>
             {% endfor %}
