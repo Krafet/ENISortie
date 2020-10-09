@@ -21,7 +21,7 @@ class Participant implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=125)
+     * @ORM\Column(type="string", length=125, unique=true)
      */
     private $nom;
 
@@ -41,7 +41,7 @@ class Participant implements UserInterface
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=55)
+     * @ORM\Column(type="string", length=255)
      */
     private $motPasse;
 

@@ -18,6 +18,7 @@ security:
                 path: logout
                 target: home
 
+
     encoders:
         App\Entity\Participant:
             algorithm: bcrypt
