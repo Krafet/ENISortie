@@ -26,4 +26,46 @@ class ProfilController extends AbstractController
             'participant' => $user
         ]);
     }
+
+
+
+    /**
+     * @Route("/profil/edit", name="profil_edit")
+     */
+    public function profil_edit(Request $request, EntityManagerInterface $em)
+    {
+        $participant = new Participants();
+        $participant = $this->getUser();
+
+        $form = $this->createForm(ParticipantsType::class, $participant);
+        $form->remove('motDePasse')
+            ->remove('campus')
+            ->remove('submit');
+        $form->add('submit',SubmitType::class, [
+            'label' => 'Mettre à jour',
+            'attr' => [
+                'class' => 'btn btn-success w-100'
+            ]
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $participant = new Participants();
+            $participant = $form->getData();
+            
+            $em->persist($participant);
+            $em->flush();
+            $this->addFlash('success','Le profil a été mis à jour !');
+
+            return $this->redirectToRoute('profil');
+        }
+
+        return $this->render('participants/profil.html.twig', [
+            'edit' => true,
+            'edit_password' => false,
+            'form' => $form->createView(),
+            'page_name' => 'Profil'
+        ]);
+    }
 }
