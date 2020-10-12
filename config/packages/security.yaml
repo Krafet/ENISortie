@@ -11,6 +11,10 @@ security:
             pattern: ^/
             provider: our_db_provider
             anonymous: ~
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
             form_login:
                 login_path: login
                 check_path: login
