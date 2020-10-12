@@ -22,6 +22,9 @@ class ProfilController extends AbstractController
         dump($user);
 
         return $this->render('profil/profil.html.twig', [
+            'editProfil' => false,
+            'edit' => false,
+            'editPassword' => false,
             'controller_name' => 'ProfilController',
             'participant' => $user
         ]);
@@ -30,7 +33,7 @@ class ProfilController extends AbstractController
 
 
     /**
-     * @Route("/profil/edit", name="profil_edit")
+     * @Route("/profil/edit", name="profilEdit")
      */
     public function profil_edit(Request $request, EntityManagerInterface $em)
     {
@@ -53,7 +56,7 @@ class ProfilController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $participant = new Participants();
             $participant = $form->getData();
-            
+
             $em->persist($participant);
             $em->flush();
             $this->addFlash('success','Le profil a été mis à jour !');
@@ -61,9 +64,10 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('profil');
         }
 
-        return $this->render('participants/profil.html.twig', [
-            'edit' => true,
-            'edit_password' => false,
+        return $this->render('profil/profil.html.twig', [
+            'editProfil' => true,
+            'edit' => false,
+            'editPassword' => false,
             'form' => $form->createView(),
             'page_name' => 'Profil'
         ]);
