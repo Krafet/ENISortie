@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=ParticipantRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ParticipantRepository", repositoryClass=ParticipantRepository::class)
  */
 class Participant implements UserInterface
 {
@@ -21,7 +21,7 @@ class Participant implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=125, unique=true)
+     * @ORM\Column(type="string", length=125)
      */
     private $nom;
 
@@ -29,6 +29,12 @@ class Participant implements UserInterface
      * @ORM\Column(type="string", length=125)
      */
     private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=125, unique=true)
+     */
+    private $pseudo;
+
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
@@ -61,6 +67,7 @@ class Participant implements UserInterface
      */
     private $campus;
 
+
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur", orphanRemoval=true)
      */
@@ -90,6 +97,18 @@ class Participant implements UserInterface
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

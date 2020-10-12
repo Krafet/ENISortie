@@ -22,6 +22,7 @@ class RegisterType extends AbstractType
                 'label' => 'Nom de compte',
                 ])
             ->add('prenom')
+            ->add('pseudo')
             ->add('mail', EmailType::class)
             ->add('motPasse', RepeatedType::class,
                 [
