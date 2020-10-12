@@ -3,47 +3,47 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfilController extends AbstractController
 {
+
+
     /**
-     * @Route("/profil/{id}", name="profil")
+     * @Route("/profil", name="profil")
      */
-    public function index($id, EntityManagerInterface $em)
+    public function profil()
     {
-        $repository = $em->getRepository(Participant::class);
-
-
-        $user = $repository->find($id);
-
-        dump($user);
-
         return $this->render('profil/profil.html.twig', [
             'editProfil' => false,
-            'edit' => false,
             'editPassword' => false,
-            'controller_name' => 'ProfilController',
-            'participant' => $user
+            'form' => null,
+            'page_name' => 'Profil'
         ]);
     }
 
 
-
     /**
      * @Route("/profil/edit", name="profilEdit")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function profil_edit(Request $request, EntityManagerInterface $em)
+    public function profilEdit(Request $request, EntityManagerInterface $em)
     {
-        $participant = new Participants();
+
+
+        $participant = new Participant();
         $participant = $this->getUser();
 
-        $form = $this->createForm(ParticipantsType::class, $participant);
-        $form->remove('motDePasse')
-            ->remove('campus')
-            ->remove('submit');
+
+        $form = $this->createForm(RegisterType::class, $participant);
+        $form->remove('motDePasse');
         $form->add('submit',SubmitType::class, [
             'label' => 'Mettre à jour',
             'attr' => [
@@ -54,8 +54,13 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $participant = new Participants();
+            $participant = new Participant();
             $participant = $form->getData();
+
+
+
+            $participant->setAdministrateur(false);
+            $participant->setActif(false);
 
             $em->persist($participant);
             $em->flush();
@@ -64,9 +69,9 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('profil');
         }
 
+
         return $this->render('profil/profil.html.twig', [
             'editProfil' => true,
-            'edit' => false,
             'editPassword' => false,
             'form' => $form->createView(),
             'page_name' => 'Profil'

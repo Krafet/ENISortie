@@ -9,13 +9,10 @@ Profil utilisateur
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link {% if not editProfil and not editPassword %}active{% endif %}" href="{{ path('profilEdit') }}">Profil</a>
+                    <a class="nav-link {% if not editProfil and not editPassword %}active{% endif %}" href="{{ path('profil') }}">Profil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if edit %}active{% endif %}" href="{{ path('profilEdit') }}">Edition</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if editPassword %}active{% endif %}" href="{{ path('profilEdit') }}">Modifier le mot de passe</a>
+                    <a class="nav-link {% if editProfil %}active{% endif %}" href="{{ path('profilEdit') }}">Edition</a>
                 </li>
             </ul>
         </div>
@@ -31,11 +28,7 @@ Profil utilisateur
                 {% endif %}
             </div>
             <div class="col-auto w-100">
-                {% if edit %}
-                    {% if form is not null %}
-                        {{ form(form) }}
-                    {% endif %}
-                {% elseif editPassword %}
+                {% if editProfil %}
                     {% if form is not null %}
                         {{ form(form) }}
                     {% endif %}
@@ -44,8 +37,6 @@ Profil utilisateur
                     <div class="list-group">
                         {% if app.user.campus is not null %}
                             <a class="list-group-item list-group-item-action" href="#">{{ app.user.campus.nom }}</a>
-                        {% else %}
-                            <a class="list-group-item list-group-item-action" href="#">Pas de campus pour le momment</a>
                         {% endif %}
                     </div>
                 {% endif %}
