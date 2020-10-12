@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{%  block main %}
+    <h1 align="center">Afficher une sortie</h1>
+    <div align="center">
+        <form type="POST" action="{{ path('sortie_annuler', {'id': sortie.id}) }}">
+            <label>Nom de la sortie :</label>
+            <label>{{ sortie.nom }}</label><br>
+
+            <label>Date et heure de la sortie :</label>
+            <label>{{ sortie.dateHeureDebut|format_datetime()}}</label><br>
+
+            <label>Campus :</label>
+            <label>{{ sortie.siteOrganisateur.nom }}</label><br>
+
+            <label>Lieu :</label>
+            <label>{{ sortie.lieu.nom }}, {{ sortie.lieu.rue }}, {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</label><br>
+
+            <label>Motif :</label>
+            <textarea name="motif" required></textarea><br>
+
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a href="{{ path('home')}}" class="btn btn-danger">Annuler</a>
+        </form>
+    </div>
+
+{% endblock %}
+
