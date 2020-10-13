@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{%  block main %}
+
+    {{ form_start(createSortieForm) }}
+    {{ form_widget(createSortieForm) }}
+    <button type="submit" class="btn btn-success"> Enregistrer </button>
+    <a href="" class="btn btn-success"> Publier la sortie </a>
+    <a href=" {{ path('home') }}" class="btn btn-danger"> Annuler </a>
+    {{ form_end(createSortieForm) }}
+
+    <script>
+        // function remplirChamps()
+        // {
+        //     let element = document.getElementById("create_sortie_lieu").value;
+        //
+        //     window.location.href = "/enisortie/public/sortie/create";
+        // }
+    </script>
+
+{% endblock %}
+

@@ -83,6 +83,11 @@ class Sortie
      */
     private $inscriptions;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $motifAnnulation;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
@@ -105,12 +110,12 @@ class Sortie
         return $this;
     }
 
-    public function getDateHeureDebut(): ?\DateTimeInterface
+    public function getDateHeureDebut(): ?\DateTime
     {
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut(\DateTime $dateHeureDebut): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 
@@ -129,12 +134,12 @@ class Sortie
         return $this;
     }
 
-    public function getDateLimiteInscription(): ?\DateTimeInterface
+    public function getDateLimiteInscription(): ?\DateTime
     {
         return $this->dateLimiteInscription;
     }
 
-    public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription): self
+    public function setDateLimiteInscription(\DateTime $dateLimiteInscription): self
     {
         $this->dateLimiteInscription = $dateLimiteInscription;
 
@@ -255,4 +260,22 @@ class Sortie
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMotifAnnulation()
+    {
+        return $this->motifAnnulation;
+    }
+
+    /**
+     * @param mixed $motifAnnulation
+     */
+    public function setMotifAnnulation($motifAnnulation): void
+    {
+        $this->motifAnnulation = $motifAnnulation;
+    }
+
+
 }

@@ -1,6 +1,13 @@
 {% extends 'layout.html.twig' %}
 
 {%  block main %}
+    <div align="right" class="font-weight-bold">
+        Date du jour : {{ date()|format_date() }}
+        <br>
+        Participant : {{ app.user.nom }} {{ app.user.prenom|first }}.
+    </div>
+
+
     {{ form_start(filterSortieForm) }}
     {{ form_widget(filterSortieForm) }}
     <button type="submit"> Rechercher </button>
@@ -35,6 +42,7 @@
                 <td>{{ sortie.dateLimiteInscription|format_datetime() }}</td>
                 <td>{{ sortie.inscriptions|length }} /{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etat.libelle }}</td>
+
                 {% if isInscrit == true %}
                     <td>X</td>
                 {% else %}
@@ -42,11 +50,45 @@
                 {% endif %}
 
                 <td>{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</td>
-                {{ if sortie.organisateur }}
-                <td></td>
+
+                {% if sortie.organisateur.id == app.user.id %}
+                    {% if sortie.etat.libelle == "Créée" %}
+                        <td><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a></td>
+                    {% elseif sortie.etat.libelle == "Annulée" %}
+                        <td><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a></td>
+                    {% else %}
+                        <td><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a> - <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a></td>
+                    {% endif %}
+                {% else %}
+                    {% if sortie.etat.libelle == "Créée" %}
+                        <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a></td>
+                    {% elseif sortie.etat.libelle == "Ouverte" %}
+                        {% if isInscrit == true %}
+                            <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a> - <a href="{{ path("inscription_seDesister",{'idSortie': sortie.id} ) }}" onclick="return confirm('Se désister de la sortie ?')">Se désister</a></td>
+                        {% else %}
+                            <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a> - <a href="{{ path("inscription_inscrire",{'idSortie': sortie.id} ) }}" onclick="return confirm('S\'inscrire à la sortie ?')">S'inscrire</a></td>
+                        {% endif %}
+                    {% elseif sortie.etat.libelle == "Clôturée" %}
+                        {% if isInscrit == true %}
+                            <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a> - <a href="{{ path("inscription_seDesister",{'idSortie': sortie.id} ) }}" onclick="return confirm('Se desister de la sortie ?')">Se désister</a></td>
+                        {% else %}
+                            <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a></td>
+                        {% endif %}
+                    {% elseif sortie.etat.libelle == "Activité en cours" %}
+                        <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a></td>
+                    {% elseif sortie.etat.libelle == "Passée" %}
+                        <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a></td>
+                    {% elseif sortie.etat.libelle == "Annulée" %}
+                        <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {% endif %}
             </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
+
+    <a  href="{{ path('sortie_create') }}">Créer une sortie<a>
 {% endblock %}

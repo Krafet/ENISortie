@@ -32,7 +32,12 @@ class HomeController extends AbstractController
             $cbNonInscrit = $filterSortieForm['cbNonInscrit']->getData();
             $cbSortiePassee = $filterSortieForm['cbSortiePassee']->getData();
 
+            $sorties = $repo->findByFilter($campus, $nomSortie, $dateDebut, $dateFin, $cbOrginisateur, $cbInscrit, $cbNonInscrit, $cbSortiePassee);
 
+            return $this->render("sortie/index.html.twig", [
+                "filterSortieForm"=> $filterSortieForm->createView(),
+                "sorties" => $sorties,
+            ]);
         }
 
         return $this->render("sortie/index.html.twig", [

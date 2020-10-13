@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+
+{%  block main %}
+    <h1 align="center">Afficher une sortie</h1>
+    <div>
+        <label>Nom de la sortie :</label>
+        <a>{{ sortie.nom }}</a><br>
+
+        <label>Date et heure de la sortie :</label>
+        <a>{{ sortie.dateHeureDebut|format_datetime()}}</a><br>
+
+        <label>Date limite d'inscription :</label>
+        <a>{{ sortie.dateLimiteInscription|format_datetime() }}</a><br>
+
+        <label>Nombre de places restante :</label>
+        <a>{{ sortie.nbInscriptionsMax -  sortie.inscriptions|length}}</a><br>
+
+        <label>Durée :</label>
+        <a>{{ sortie.duree }} minutes</a><br>
+
+        <label>Description et infos :</label>
+        <a>{{ sortie.infosSortie }}</a><br>
+
+        <label>Campus :</label>
+        <a>{{ sortie.siteOrganisateur.nom }}</a><br>
+
+        <label>Lieu :</label>
+        <a>{{ sortie.lieu.nom }} - {{ sortie.lieu.ville.nom }}</a><br>
+
+        <label>Rue :</label>
+        <a>{{ sortie.lieu.rue }}</a><br>
+
+        <label>Code postal :</label>
+        <a>{{ sortie.lieu.ville.codePostal }}</a><br>
+
+        <label>Latitude :</label>
+        <a>{{ sortie.lieu.latitude }}</a><br>
+
+        <label>Longitude :</label>
+        <a>{{ sortie.lieu.longitude }}</a><br>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for inscrit in sortie.inscriptions %}
+                <tr>
+                    <td>{{ inscrit.participant.nom }}</td>
+                    <td>{{ inscrit.participant.prenom }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
+

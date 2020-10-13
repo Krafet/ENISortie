@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Campus;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @method Sorties|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,35 +21,30 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function findListInscriptionByUser(Integer $id)
+
+    /**
+     * @return Sorties[] Returns an array of Sorties objects
+     */
+    public function findByFilter(Campus $campus, string $nomSortie, Date $dateDebut, Date $dateFin, bool $cbOrginisateur,bool $cbInscrit,bool $cbNonInscrit,bool $cbSortiePassee)
     {
-        return $this->createQueryBuilder('inscription')
-            ->addSelect('*')
-            ->where('inscription.participant_id = ')
-            ->join('inscription.participant_id', 'participant')
-            ->join('inscription.sortie_id', 'sortie')
-            ->orderBy('inscription', 'ASC')
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.siteOrganisateur = :campus')
+            ->andWhere('s.nom LIKE "%:nomSortie%"')
+            ->andWhere('s.dateHeureDebut LIKE "%:nomSortie%"')
+            ->andWhere('s.nom LIKE "%:nomSortie%"')
+            ->andWhere('s.nom LIKE "%:nomSortie%"')
+            ->andWhere('s.nom LIKE "%:nomSortie%"')
+            ->andWhere('s.nom LIKE "%:nomSortie%"')
+            ->join('s.inscriptions', 'i')
+            ->setParameter('campus', $campus->getId())
+            ->setParameter('nomSortie', $nomSortie)
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
             ;
     }
 
-    // /**
-    //  * @return Sorties[] Returns an array of Sorties objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
     /*
     public function findOneBySomeField($value): ?Sorties

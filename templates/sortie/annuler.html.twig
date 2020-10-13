@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {%  block main %}
-    <h1 align="center">Afficher une sortie</h1>
+    <h1 align="center">Annuler une sortie</h1>
     <div align="center">
         <form type="POST" action="{{ path('sortie_annuler', {'id': sortie.id}) }}">
             <label>Nom de la sortie :</label>
