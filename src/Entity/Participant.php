@@ -30,6 +30,13 @@ class Participant implements UserInterface
      */
     private $prenom;
 
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
+
+
     /**
      * @ORM\Column(type="string", length=125, unique=true)
      */
@@ -92,6 +99,18 @@ class Participant implements UserInterface
     public function getNom(): ?string
     {
         return $this->nom;
+    }
+
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+
+    public function setPhoto($photo): void
+    {
+        $this->photo = $photo;
     }
 
     public function setNom(string $nom): self

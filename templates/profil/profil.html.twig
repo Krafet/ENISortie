@@ -18,6 +18,11 @@ Profil utilisateur
         </div>
         <div class="card-body row justify-content-center">
             <div class="col-auto text-center">
+                {% if app.user.photo is not null %}
+                    <img src="{{ asset('files/' ~ app.user.photo) }}" alt="{{ app.user.username }}">
+                {% else %}
+                    Pas de photo
+                {% endif %}
                 <h1 class="d-block">{{ app.user.nom }} {{ app.user.prenom }}</h1>
                 <p class="title d-block">({{ app.user.pseudo }})</p>
                 {% if app.user.mail is not null %}
