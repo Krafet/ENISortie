@@ -4,19 +4,24 @@ security:
         our_db_provider:
             entity:
                 class: App\Entity\Participant
-                property: nom
+                property: pseudo
 
     firewalls:
         main:
             pattern: ^/
             provider: our_db_provider
             anonymous: ~
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
             form_login:
                 login_path: login
                 check_path: login
             logout:
                 path: logout
                 target: home
+
 
     encoders:
         App\Entity\Participant:

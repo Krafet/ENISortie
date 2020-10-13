@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Campus;
+use App\Entity\Participant;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -22,6 +25,7 @@ class RegisterType extends AbstractType
                 'label' => 'Nom de compte',
                 ])
             ->add('prenom')
+            ->add('pseudo')
             ->add('mail', EmailType::class)
             ->add('motPasse', RepeatedType::class,
                 [
@@ -37,14 +41,31 @@ class RegisterType extends AbstractType
                 'choice_label' => 'nom',
                 'label'=> 'Campus',
             ])
+            ->add('photo', FileType::class, [
+                'label' => 'Photo Image file (jpg, jpeg, png, gif)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '4096k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                            'image/gif',
+                            // jpg, jpeg, png, gif
+                        ],
+                        'mimeTypesMessage' => 'Veuillez mettre un format image valide',
+                    ])
+                ],
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
-            //'data_class' => User::class,
+            'data_class' => Participant::class,
         ]);
     }
 }

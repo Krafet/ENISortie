@@ -1,17 +1,24 @@
 {% extends 'layout.html.twig' %}
 
 {%  block main %}
-  <form method="post">
 
-      <label for="nom"> Mot de passe : </label>
-      <input type="text" name="_username" id="nom">
 
-      <label for="motPasse"> Mot de passe : </label>
-      <input type="password" name="_password" id="motPasse">
+    <form method="post">
 
-      <button type="submit"> Se connecter</button>
-  </form>
+        <label for="username"> Pseudo : </label>
+        <input type="text" name="_username" id="username">
+
+        <label for="mdp"> Mot de passe : </label>
+        <input type="password" name="_password" id="password">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="_remember_me" checked>
+            <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+        </div>
+
+        <button type="submit"> Se connecter</button>
+    </form>
 {% endblock %}
 
 
 {% block title %}Login {% endblock %}
+
