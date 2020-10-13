@@ -7,6 +7,9 @@ security:
                 property: pseudo
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         main:
             pattern: ^/
             provider: our_db_provider
@@ -21,6 +24,10 @@ security:
             logout:
                 path: logout
                 target: home
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
 
 
     encoders:
