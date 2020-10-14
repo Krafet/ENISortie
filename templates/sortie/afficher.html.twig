@@ -51,8 +51,10 @@
             <tbody>
             {% for inscrit in sortie.inscriptions %}
                 <tr>
-                    <td>{{ inscrit.participant.nom }}</td>
-                    <td>{{ inscrit.participant.prenom }}</td>
+
+                    <td><a href="{{ path('profilID', {'id': inscrit.participant.id} )}}">{{ inscrit.participant.pseudo }}</a></td>
+                    <td>{{ inscrit.participant.prenom }} {{ inscrit.participant.nom|first }}</td>
+
                 </tr>
             {% endfor %}
             </tbody>
