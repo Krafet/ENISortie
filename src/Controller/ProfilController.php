@@ -28,6 +28,21 @@ class ProfilController extends AbstractController
     }
 
 
+
+    /**
+     * @Route("/profil/{id}", name="profilID")
+     */
+    public function profilID(int $id, EntityManagerInterface $em)
+    {
+        $participant = new Participant();
+        $participant = $em->getRepository(Participant::class)->find($id);
+
+        return $this->render('profil/other.html.twig', [
+            'participant' => $participant
+        ]);
+    }
+
+
     /**
      * @Route("/profil/edit", name="profilEdit")
      * @param Request $request
