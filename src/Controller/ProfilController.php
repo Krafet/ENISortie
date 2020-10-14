@@ -19,26 +19,35 @@ class ProfilController extends AbstractController
      */
     public function profil()
     {
+        $participant = new Participant();
+        $participant = $this->getUser();
+
+
         return $this->render('profil/profil.html.twig', [
+            'participant' => $participant,
             'editProfil' => false,
             'editPassword' => false,
             'form' => null,
-            'page_name' => 'Profil'
+            'page_name' => 'Profil',
+            'other' => false,
         ]);
     }
 
 
 
     /**
-     * @Route("/profil/{id}", name="profilID")
+     * @Route("/profil/{id}", name="profilID", requirements={"id"="\d+"})
      */
     public function profilID(int $id, EntityManagerInterface $em)
     {
         $participant = new Participant();
         $participant = $em->getRepository(Participant::class)->find($id);
 
-        return $this->render('profil/other.html.twig', [
-            'participant' => $participant
+        return $this->render('profil/profil.html.twig', [
+            'participant' => $participant,
+            'editProfil' => false,
+            'editPassword' => false,
+            'other' => true,
         ]);
     }
 
@@ -86,10 +95,12 @@ class ProfilController extends AbstractController
 
 
         return $this->render('profil/profil.html.twig', [
+            'participant' => $participant,
             'editProfil' => true,
             'editPassword' => false,
             'form' => $form->createView(),
-            'page_name' => 'Profil'
+            'page_name' => 'Profil',
+            'other' => false,
         ]);
     }
 }
