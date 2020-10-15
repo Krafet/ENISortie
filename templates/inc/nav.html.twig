@@ -11,6 +11,10 @@
 
         {%  if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <li class="nav-item">
+                <a class="btn btn-light" href="{{ path('profil') }}">Mon profil </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="btn btn-light" href="{{ path('logout') }}">Se deconnecter </a>
             </li>
 
