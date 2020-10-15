@@ -51,7 +51,7 @@ class FilterSortiesType extends AbstractType
                 'required'   => false,
             ])
             ->add('cbSortiePassee', CheckboxType::class, [
-                'label'=> 'Sorties pasées',
+                'label'=> 'Sorties passées',
                 'required'   => false,
             ])
         ;

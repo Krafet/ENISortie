@@ -143,7 +143,7 @@ class SortieController extends AbstractController
             $lieu = $repoLieu->find($arrayForm["lieu"]);
 
             $repoEtat = $em->getRepository(Etat::class);
-            $etat = $repoEtat->find(1);
+            $etat = $repoEtat->find($sortie->getEtat());
 
             $dateHeureDebut = new \DateTime($arrayForm["dateHeureDebut"]);
             $dateLimiteInscription = new \DateTime($arrayForm["dateHeureDebut"]);

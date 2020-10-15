@@ -6,7 +6,7 @@
     {{ form_start(modifierSortieForm) }}
     {{ form_widget(modifierSortieForm) }}
     <button type="submit" class="btn btn-success"> Enregistrer </button>
-    {% if sortie.etat.id != 2 %}
+    {% if sortie.etat.id == 1 %}
         <a href="{{ path('sortie_publier', {'id': sortie.id}) }}" class="btn btn-success"> Publier la sortie </a>
     {% endif %}
     {% if sortie.organisateur.id == app.user.id %}

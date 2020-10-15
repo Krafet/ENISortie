@@ -10,10 +10,10 @@
 
     {{ form_start(filterSortieForm) }}
     {{ form_widget(filterSortieForm) }}
-    <button type="submit"> Rechercher </button>
+    <button type="submit" class="btn btn-success"> Rechercher </button>
     {{ form_end(filterSortieForm) }}
 
-
+<br>
     <div>
         <table class="table">
             <thead>
@@ -56,6 +56,10 @@
                         <td><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a></td>
                     {% elseif sortie.etat.libelle == "Annulée" %}
                         <td><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a></td>
+                    {% elseif sortie.etat.libelle == "Activité en cours" %}
+                        <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a></td>
+                    {% elseif sortie.etat.libelle == "Passée" %}
+                        <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a></td>
                     {% else %}
                         <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a> - <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a> - <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a></td>
                     {% endif %}
@@ -90,5 +94,5 @@
         </table>
     </div>
 
-    <a  href="{{ path('sortie_create') }}">Créer une sortie<a>
+    <a  href="{{ path('sortie_create') }}" class="btn btn-primary">Créer une sortie<a>
 {% endblock %}

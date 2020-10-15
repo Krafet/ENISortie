@@ -39,9 +39,8 @@ class SortieRepository extends ServiceEntityRepository
         $qb->leftJoin('s.lieu', 'l');
         $qb->leftJoin('s.organisateur', 'o');
 
-        $qb->andWhere('s.dateHeureDebut BETWEEN :dateSubstract1Month AND :dateNow');
+        $qb->andWhere('s.dateHeureDebut > :dateSubstract1Month');
         $qb->setParameter('dateSubstract1Month', $dateSubstract1Month);
-        $qb->setParameter('dateNow', $dateNow);
 
         $qb->orderBy('s.id', 'ASC');
         $qb->setMaxResults(100);
@@ -68,9 +67,8 @@ class SortieRepository extends ServiceEntityRepository
         $qb->leftJoin('s.lieu', 'l');
         $qb->leftJoin('s.organisateur', 'o');
 
-        $qb->andWhere('s.dateHeureDebut BETWEEN :dateSubstract1Month AND :dateNow');
+        $qb->andWhere('s.dateHeureDebut > :dateSubstract1Month');
         $qb->setParameter('dateSubstract1Month', $dateSubstract1Month);
-        $qb->setParameter('dateNow', $dateNow);
 
         if($array["campus"] != null)
         {
