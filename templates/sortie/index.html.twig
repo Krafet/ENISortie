@@ -57,7 +57,7 @@
                     {% elseif sortie.etat.libelle == "Annulée" %}
                         <td><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a></td>
                     {% else %}
-                        <td><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a> - <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a></td>
+                        <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">Afficher</a> - <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a> - <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a></td>
                     {% endif %}
                 {% else %}
                     {% if sortie.etat.libelle == "Créée" %}
