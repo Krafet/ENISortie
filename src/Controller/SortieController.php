@@ -45,7 +45,7 @@ class SortieController extends AbstractController
             $sortie = new Sortie();
 
             $dateHeureDebut = new \DateTime($arrayForm["dateHeureDebut"]);
-            $dateLimiteInscription = new \DateTime($arrayForm["dateHeureDebut"]);
+            $dateLimiteInscription = new \DateTime($arrayForm["dateLimiteInscription"]);
 
             $sortie->setNom($arrayForm["nom"]);
             $sortie->setDateHeureDebut($dateHeureDebut);

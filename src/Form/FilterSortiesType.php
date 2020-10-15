@@ -6,6 +6,7 @@ use App\Entity\Campus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,12 +28,12 @@ class FilterSortiesType extends AbstractType
                 'label'=> 'Le nom de la sortie contient :',
                 'required'   => false,
             ])
-            ->add('dateDebut', DateType::class, [
+            ->add('dateDebut', DateTimeType::class, [
                 'widget' => 'single_text',
                 'label'=> 'Entre',
                 'required'   => false,
             ])
-            ->add('dateFin', DateType::class, [
+            ->add('dateFin', DateTimeType::class, [
                 'widget' => 'single_text',
                 'label'=> 'et',
                 'required'   => false,

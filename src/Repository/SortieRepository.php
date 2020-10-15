@@ -21,28 +21,97 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    /**
+     * @return Sorties[] Returns an array of Sorties objects
+     */
+    public function findAllSortie()
+    {
+        $dateSubstract1Month = new \DateTime();
+        $dateSubstract1Month->modify('-1 months');
+
+        $dateNow = new \DateTime();
+
+        $qb = $this->createQueryBuilder('s');
+        $qb->select(array('s', 'i', 'e', 'l', 'o','p'));
+        $qb->leftJoin('s.inscriptions', 'i');
+        $qb->leftJoin('i.participant', 'p');
+        $qb->leftJoin('s.etat', 'e');
+        $qb->leftJoin('s.lieu', 'l');
+        $qb->leftJoin('s.organisateur', 'o');
+
+        $qb->andWhere('s.dateHeureDebut BETWEEN :dateSubstract1Month AND :dateNow');
+        $qb->setParameter('dateSubstract1Month', $dateSubstract1Month);
+        $qb->setParameter('dateNow', $dateNow);
+
+        $qb->orderBy('s.id', 'ASC');
+        $qb->setMaxResults(100);
+        $query = $qb->getQuery();
+        //$qb->getResult();
+        return $query->getArrayResult();
+    }
 
     /**
      * @return Sorties[] Returns an array of Sorties objects
      */
-    public function findByFilter(Campus $campus, string $nomSortie, Date $dateDebut, Date $dateFin, bool $cbOrginisateur,bool $cbInscrit,bool $cbNonInscrit,bool $cbSortiePassee)
+    public function findByFilter(Array $array)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.siteOrganisateur = :campus')
-            ->andWhere('s.nom LIKE "%:nomSortie%"')
-            ->andWhere('s.dateHeureDebut LIKE "%:nomSortie%"')
-            ->andWhere('s.nom LIKE "%:nomSortie%"')
-            ->andWhere('s.nom LIKE "%:nomSortie%"')
-            ->andWhere('s.nom LIKE "%:nomSortie%"')
-            ->andWhere('s.nom LIKE "%:nomSortie%"')
-            ->join('s.inscriptions', 'i')
-            ->setParameter('campus', $campus->getId())
-            ->setParameter('nomSortie', $nomSortie)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-            ;
+        $dateSubstract1Month = new \DateTime();
+        $dateSubstract1Month->modify('-1 months');
+
+        $dateNow = new \DateTime();
+
+        $qb = $this->createQueryBuilder('s');
+        $qb->select(array('s', 'i', 'e', 'l', 'o'));
+        $qb->leftJoin('s.inscriptions', 'i');
+        $qb->leftJoin('s.etat', 'e');
+        $qb->leftJoin('s.lieu', 'l');
+        $qb->leftJoin('s.organisateur', 'o');
+
+        $qb->andWhere('s.dateHeureDebut BETWEEN :dateSubstract1Month AND :dateNow');
+        $qb->setParameter('dateSubstract1Month', $dateSubstract1Month);
+        $qb->setParameter('dateNow', $dateNow);
+
+        if($array["campus"] != null)
+        {
+            $qb->andWhere('s.siteOrganisateur = :campus');
+            $qb->setParameter('campus', $array["campus"]);
+        }
+        if($array["nomSortie"] != null)
+        {
+            $qb->andWhere('s.nom LIKE :nomSortie');
+            $qb->setParameter('nomSortie', '%'.$array["nomSortie"].'%');
+        }
+        if($array["dateDebut"] != null && $array["dateFin"] != null)
+        {
+            $qb->andWhere('s.dateHeureDebut BETWEEN :dateDebut and :dateFin');
+            $qb->setParameter('dateDebut', $array["dateDebut"]);
+            $qb->setParameter('dateFin', $array["dateFin"]);
+        }
+        if($array["cbOrganisateur"] == true)
+        {
+            $qb->andWhere('s.organisateur = :user');
+            $qb->setParameter('user', $array["user"]);
+        }
+        if($array["cbInscrit"] == true)
+        {
+            $qb->andWhere('i.participant = :user');
+            $qb->setParameter('user', $array["user"]);
+        }
+        if($array["cbNonInscrit"] == true)
+        {
+            $qb->andWhere('i.participant <> :user');
+            $qb->setParameter('user', $array["user"]);
+        }
+        if($array["cbSortiePassee"] == true)
+        {
+            $qb->andWhere('s.etat = :etat');
+            $qb->setParameter('etat', 5);
+        }
+        $qb->orderBy('s.id', 'ASC');
+        $qb->setMaxResults(100);
+        $query = $qb->getQuery();
+        //$qb->getResult();
+        return $query->getArrayResult();
     }
 
 
