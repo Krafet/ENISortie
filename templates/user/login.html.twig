@@ -3,8 +3,9 @@
 {%  block main %}
 
 
-    <form method="post">
+    <form class="jumbotron " method="post">
 
+        <div class="row">
         <label for="username"> Pseudo : </label>
         <input type="text" name="_username" id="username">
 
@@ -15,7 +16,8 @@
             <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
         </div>
 
-        <button type="submit"> Se connecter</button>
+        <button class="btn btn-primary" type="submit"> Se connecter</button>
+        </div>
     </form>
 {% endblock %}
 
