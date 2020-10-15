@@ -61,8 +61,9 @@ class SortieRepository extends ServiceEntityRepository
         $dateNow = new \DateTime();
 
         $qb = $this->createQueryBuilder('s');
-        $qb->select(array('s', 'i', 'e', 'l', 'o'));
+        $qb->select(array('s', 'i', 'e', 'l', 'o', 'p'));
         $qb->leftJoin('s.inscriptions', 'i');
+        $qb->leftJoin('i.participant', 'p');
         $qb->leftJoin('s.etat', 'e');
         $qb->leftJoin('s.lieu', 'l');
         $qb->leftJoin('s.organisateur', 'o');

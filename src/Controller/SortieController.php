@@ -8,6 +8,7 @@ use App\Entity\Inscription;
 use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\CreateSortieType;
 use App\Form\ModifierSortieType;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,12 @@ class SortieController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $em, UserInterface $user)
     {
+        $repoLieu = $em->getRepository(Lieu::class);
+        $lieux = $repoLieu->findAll();
+
+        $repoVille = $em->getRepository(Ville::class);
+        $villes = $repoVille->findAll();
+
         $createSortieForm = $this->createForm(CreateSortieType::class);
 
         if($user != null)
@@ -68,6 +75,8 @@ class SortieController extends AbstractController
         }
 
         return $this->render("sortie/create.html.twig", [
+            "lieux"=>$lieux,
+            "villes"=>$villes,
             "createSortieForm"=> $createSortieForm->createView(),
         ]);
     }
@@ -94,7 +103,14 @@ class SortieController extends AbstractController
         $repo = $em->getRepository(Sortie::class);
         $sortie = $repo->find($id);
 
+        $repoLieu = $em->getRepository(Lieu::class);
+        $lieux = $repoLieu->findAll();
+
+        $repoVille = $em->getRepository(Ville::class);
+        $villes = $repoVille->findAll();
+
         $modifierSortieForm = $this->createForm(ModifierSortieType::class);
+
 
         if($sortie != null)
         {
@@ -111,7 +127,6 @@ class SortieController extends AbstractController
             $modifierSortieForm->get("latitude")->setData($sortie->getLieu()->getLatitude());
             $modifierSortieForm->get("longitude")->setData($sortie->getLieu()->getLongitude());
         }
-
 
         $modifierSortieForm->handleRequest($request);
         if($modifierSortieForm->isSubmitted() && $modifierSortieForm->isValid())
@@ -153,6 +168,8 @@ class SortieController extends AbstractController
 
         return $this->render("sortie/modifier.html.twig", [
             "sortie"=> $sortie,
+            "lieux"=>$lieux,
+            "villes"=>$villes,
             "modifierSortieForm"=> $modifierSortieForm->createView(),
         ]);
     }

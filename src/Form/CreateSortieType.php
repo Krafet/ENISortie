@@ -60,25 +60,29 @@ class CreateSortieType extends AbstractType
                 return $lieu->getNom(). ' - '.$lieu->getVille()->getNom();
                 },
                 'label'=> 'Lieu :',
-                //'attr'=> ['onchange'=> 'remplirChamps()'],
-                'required'   => false,
+                'attr'=> ['onchange'=> 'remplirChamps()'],
+                'required'   => true,
             ])
 
             ->add('rue', TextType::class, [
                 'label'=> 'Rue :',
-                'required' => true,
+                'required' => false,
+                'disabled' => true,
             ])
             ->add('codePostal', TextType::class, [
                 'label'=> 'Code postal :',
-                'required' => true,
+                'required' => false,
+                'disabled' => true,
             ])
             ->add('latitude', TextType::class, [
                 'label'=> 'Latitude :',
-                'required' => true,
+                'required' => false,
+                'disabled' => true,
             ])
             ->add('longitude', TextType::class, [
                 'label'=> 'Longitude :',
-                'required' => true,
+                'required' => false,
+                'disabled' => true,
             ])
         ;
     }

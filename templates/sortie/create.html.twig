@@ -10,12 +10,43 @@
     {{ form_end(createSortieForm) }}
 
     <script>
-        // function remplirChamps()
-        // {
-        //     let element = document.getElementById("create_sortie_lieu").value;
-        //
-        //     window.location.href = "/enisortie/public/sortie/create";
-        // }
+
+        remplirChamps();
+
+        function remplirChamps(){
+            var idLieu = document.getElementById('create_sortie_lieu').value;
+
+            console.log(idLieu);
+
+            if(idLieu != null)
+            {
+                var lieuVilleId = 0;
+
+                {% for lieu in lieux %}
+                var lieuId = {{ lieu.id }};
+                if(idLieu == lieuId)
+                {
+                    document.getElementById('create_sortie_rue').value = '{{ lieu.rue }}';
+                    document.getElementById('create_sortie_longitude').value = '{{ lieu.longitude }}';
+                    document.getElementById('create_sortie_latitude').value = '{{ lieu.latitude }}';
+
+                    lieuVilleId = {{ lieu.ville.id }};
+                }
+
+                console.log(lieuVilleId);
+                {% for ville in villes %}
+                var villeId = {{ ville.id }};
+                if(lieuVilleId === villeId)
+                {
+                    document.getElementById('create_sortie_codePostal').value = '{{ ville.codePostal }}';
+                }
+                {% endfor %}
+
+                {% endfor %}
+            }
+        }
+
+
     </script>
 
 {% endblock %}

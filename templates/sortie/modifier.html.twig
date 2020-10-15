@@ -15,5 +15,44 @@
     <a href="{{ path('home') }}" class="btn btn-danger"> Annuler </a>
     {{ form_end(modifierSortieForm) }}
 
+
+    <script>
+        function remplirChamps(){
+            var idLieu = document.getElementById('modifier_sortie_lieu').value;
+
+
+            if(idLieu != null)
+            {
+                var lieuVilleId = 0;
+
+                {% for lieu in lieux %}
+                    var lieuId = {{ lieu.id }};
+                    if(idLieu == lieuId)
+                    {
+                        document.getElementById('modifier_sortie_rue').value = '{{ lieu.rue }}';
+                        document.getElementById('modifier_sortie_longitude').value = '{{ lieu.longitude }}';
+                        document.getElementById('modifier_sortie_latitude').value = '{{ lieu.latitude }}';
+
+                        lieuVilleId = {{ lieu.ville.id }};
+                    }
+
+                    console.log(lieuVilleId);
+                        {% for ville in villes %}
+                            var villeId = {{ ville.id }};
+                            if(lieuVilleId === villeId)
+                            {
+                                document.getElementById('modifier_sortie_codePostal').value = '{{ ville.codePostal }}';
+                            }
+                        {% endfor %}
+
+                {% endfor %}
+            }
+        }
+
+
+    </script>
+
+
+
 {% endblock %}
 
