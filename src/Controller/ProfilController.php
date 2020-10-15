@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfilController extends AbstractController
 {
@@ -58,7 +59,7 @@ class ProfilController extends AbstractController
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function profilEdit(Request $request, EntityManagerInterface $em)
+    public function profilEdit(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
 
 
@@ -85,6 +86,9 @@ class ProfilController extends AbstractController
 
             $participant->setAdministrateur(false);
             $participant->setActif(false);
+
+            $hashedPassword = $encoder->encodePassword($participant, $participant->getMotPasse());
+            $participant->setMotPasse($hashedPassword);
 
             $em->persist($participant);
             $em->flush();
