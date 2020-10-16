@@ -44,6 +44,11 @@ class ProfilController extends AbstractController
         $participant = new Participant();
         $participant = $em->getRepository(Participant::class)->find($id);
 
+        if($participant->getUsername() == $this->getUser()->getUsername())
+        {
+            return $this->redirectToRoute('profil');
+        }
+
         return $this->render('profil/profil.html.twig', [
             'participant' => $participant,
             'editProfil' => false,

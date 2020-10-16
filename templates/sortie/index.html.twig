@@ -49,7 +49,7 @@
                     <td></td>
                 {% endif %}
 
-                <td><a href="{{ path('profil', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</a></td>
+                <td><a href="{{ path('profilID', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</a></td>
 
                 {% if sortie.organisateur.id == app.user.id %}
                     {% if sortie.etat.libelle == "Créée" %}
