@@ -18,20 +18,21 @@ Profil utilisateur
             </ul>
         </div>
         {% endif %}
-        <div class="card-body row justify-content-center">
-            <div class="col-auto text-center">
+        <div class="card-body row">
+            <div class="col-auto">
+                <h2 class="d-block">Nom utilisateur : {{ participant.nom }} {{ participant.prenom }}</h2>
                 {% if participant.photo is not null %}
                     <img src="{{ asset('files/' ~ participant.photo) }}" alt="{{ participant.username }}">
                 {% else %}
-                    Pas de photo
+
                 {% endif %}
-                <h1 class="d-block">{{ participant.nom }} {{ participant.prenom }}</h1>
-                <p class="title d-block">({{ participant.pseudo }})</p>
+
+                <p class="title d-block">Pseudo : ({{ participant.pseudo }})</p>
                 {% if participant.mail is not null %}
-                    <a href="#" class="d-block"><i class="fas fa-at"></i> {{ participant.mail }}</a>
+                    <a href="#" class="d-block"><i class="fas fa-at"></i>Mail : {{ participant.mail }}</a>
                 {% endif %}
                 {% if participant.telephone is not null %}
-                    <a href="#" class="d-block"><i class="fas fa-phone"></i> {{ participant.telephone }}</a>
+                    <a href="#" class="d-block"><i class="fas fa-phone"></i>Téléphone : {{ participant.telephone }}</a>
                 {% endif %}
             </div>
             <div class="col-auto w-100">
@@ -43,12 +44,13 @@ Profil utilisateur
                         {% endif %}
                     {% endif %}
                 {% else %}
-                    <h1><i class="fas fa-university"></i> Campus</h1>
-                    <div class="list-group">
+                    <h2><i class="fas fa-university"></i> Campus :
+
                         {% if participant.campus is not null %}
-                            <a class="list-group-item list-group-item-action" href="#">{{ participant.campus.nom }}</a>
+                            {{ participant.campus.nom }}
                         {% endif %}
-                    </div>
+                    </h2>
+
                 {% endif %}
             </div>
         </div>
